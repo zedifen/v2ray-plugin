@@ -87,6 +87,7 @@ func logConfig(logLevel string) *vlog.Config {
 			Type: vlog.LogType_Console,
 		},
 		Access: &vlog.LogSpecification{
+			Level: clog.Severity_Warning,
 			Type: vlog.LogType_Console,
 		},
 	}
@@ -94,10 +95,13 @@ func logConfig(logLevel string) *vlog.Config {
 	switch level {
 	case "debug":
 		config.Error.Level = clog.Severity_Debug
+		config.Access.Level = clog.Severity_Debug
 	case "info":
 		config.Error.Level = clog.Severity_Info
+		config.Access.Level = clog.Severity_Info
 	case "error":
 		config.Error.Level = clog.Severity_Error
+		config.Access.Level = clog.Severity_Error
 	case "none":
 		config.Error.Type = vlog.LogType_None
 		config.Access.Type = vlog.LogType_None
