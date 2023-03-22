@@ -24,6 +24,9 @@ jobs:
       GOARCH: ${{ matrix.target_arch }}
       RELEASE_VERSION: ${{ github.event.inputs.version }}
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout codebase
         uses: actions/checkout@v3
