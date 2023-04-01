@@ -17,8 +17,8 @@ require (
 	github.com/onsi/ginkgo/v2 v2.9.1 // indirect
 	github.com/pires/go-proxyproto v0.7.0 // indirect
 	github.com/quic-go/qtls-go1-18 v0.2.0 // indirect
-	github.com/quic-go/qtls-go1-19 v0.3.0 // indirect
-	github.com/quic-go/qtls-go1-20 v0.2.0 // indirect
+	github.com/quic-go/qtls-go1-19 v0.3.2 // indirect
+	github.com/quic-go/qtls-go1-20 v0.2.2 // indirect
 	github.com/quic-go/quic-go v0.33.0 // indirect
 	golang.org/x/crypto v0.7.0 // indirect
 	golang.org/x/exp v0.0.0-20230321023759-10a507213a29 // indirect
