@@ -65,8 +65,8 @@ jobs:
       - name: Calculate SHA256 sum
         id: checksum
         run: |
-          sha256sum $TAR_NAME > $TAR_NAME.sha256sum
-          echo "SHA_256_SUM=$(awk '{print $1}' $TAR_NAME.sha256sum)" >> $GITHUB_OUTPUT
+          sha256sum $TARFILE_NAME > $TARFILE_NAME.sha256sum
+          echo "SHA_256_SUM=$(awk '{print $1}' $TARFILE_NAME.sha256sum)" >> $GITHUB_OUTPUT
 
       - name: Release
         uses: softprops/action-gh-release@v1
