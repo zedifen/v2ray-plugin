@@ -24,6 +24,7 @@ jobs:
       GOOS: ${{ matrix.target_os }}
       GOARCH: ${{ matrix.target_arch }}
       GOAMD64: v3
+      CGO_ENABLED: 0
       RELEASE_VERSION: ${{ github.event.inputs.version }}
 
     permissions:
