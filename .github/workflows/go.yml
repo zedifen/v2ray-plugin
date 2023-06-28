@@ -23,6 +23,7 @@ jobs:
     env:
       GOOS: ${{ matrix.target_os }}
       GOARCH: ${{ matrix.target_arch }}
+      GOAMD64: v3
       RELEASE_VERSION: ${{ github.event.inputs.version }}
 
     permissions:
