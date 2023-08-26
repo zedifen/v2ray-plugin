@@ -17,13 +17,21 @@ jobs:
       matrix:
         target_os: [windows, linux, darwin]
         target_arch: [amd64, arm64]
+        include:
+          - target_arch: amd64
+            arch_version: v2
+          - target_arch: amd64
+            arch_version: v3
+          - target_arch: amd64
+            arch_version: v4
 
     runs-on: ubuntu-latest
 
     env:
       GOOS: ${{ matrix.target_os }}
       GOARCH: ${{ matrix.target_arch }}
-      GOAMD64: v3
+      ARCH_VERSION: ${{ matrix.arch_version }}
+      GOAMD64: ${{ matrix.arch_version }}
       CGO_ENABLED: 0
       RELEASE_VERSION: ${{ github.event.inputs.version }}
 
@@ -45,7 +53,7 @@ jobs:
         id: build
         run: |
           echo "Target OS:   $GOOS"
-          echo "Target arch: $GOARCH"
+          echo "Target arch: $GOARCH $ARCH_VERSION"
           mkdir build
           go build -v -trimpath -ldflags "-X 'main.VERSION=$RELEASE_VERSION' -s -w" -o build/v2ray-plugin
 
@@ -57,7 +65,7 @@ jobs:
       - name: Tar artifact
         id: targz
         run: |
-          export ASSET_NAME="v2ray-plugin-$GOOS-$GOARCH-$RELEASE_VERSION"
+          export ASSET_NAME="v2ray-plugin-$GOOS-${GOARCH}${ARCH_VERSION}-$RELEASE_VERSION"
           echo "Tar filename: $ASSET_NAME.tar.gz"
           cd build
           tar czvf ../$ASSET_NAME.tar.gz *
