@@ -16,22 +16,13 @@ jobs:
       fail-fast: false
       matrix:
         target_os: [windows, linux, darwin]
-        target_arch: [amd64, arm64]
-        include:
-          - target_arch: amd64
-            arch_version: v2
-          - target_arch: amd64
-            arch_version: v3
-          - target_arch: amd64
-            arch_version: v4
+        target_arch: [amd64, amd64.v2, amd64.v3, amd64.v4, arm64]
 
     runs-on: ubuntu-latest
 
     env:
       GOOS: ${{ matrix.target_os }}
       GOARCH: ${{ matrix.target_arch }}
-      ARCH_VERSION: ${{ matrix.arch_version }}
-      GOAMD64: ${{ matrix.arch_version }}
       CGO_ENABLED: 0
       RELEASE_VERSION: ${{ github.event.inputs.version }}
 
@@ -44,6 +35,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Parsing Target Arch Version
+        run: |
+          if [[ "$GOARCH" == *"."* ]]; then
+            echo       GOARCH=$(echo "$GOARCH" | cut -d. -f1) >> $GITHUB_ENV
+            echo ARCH_VERSION=$(echo "$GOARCH" | cut -d. -f2) >> $GITHUB_ENV
+          fi
+
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
@@ -52,6 +50,7 @@ jobs:
       - name: Build
         id: build
         run: |
+          if [[ "$GOARCH" == "amd64" ]]; then export GOAMD64=${ARCH_VERSION}; fi
           echo "Target OS:   $GOOS"
           echo "Target arch: $GOARCH $ARCH_VERSION"
           mkdir build
